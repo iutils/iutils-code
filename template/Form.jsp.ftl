@@ -10,7 +10,7 @@
     </style>
 </head>
 <body>
-<script src="${ctxStatic}/assets/js/theme.js"></script>
+<script src="${"$"}{ctxStatic}/assets/js/theme.js"></script>
 <div class="am-g tpl-g">
     <!-- 内容区域 -->
     <div class="tpl-content-wrapper">
@@ -56,7 +56,7 @@
 </div>
 <%@ include file="../../include/bottom.jsp"%>
 <script type="text/javascript">
-    $(document).ready(function () {
+    ${"$"}(document).ready(function () {
         var msg = '${"$"}{msg}';
         if(msg!=''){
             showMsg(msg);

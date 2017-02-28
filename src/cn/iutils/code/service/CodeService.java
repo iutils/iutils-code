@@ -11,9 +11,7 @@ import freemarker.template.Template;
 import org.apache.commons.io.FileUtils;
 
 import javax.swing.tree.TreePath;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.Writer;
+import java.io.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -130,12 +128,16 @@ public class CodeService {
         data.put("model", tableModel);
         // 获得模板对象
         Template template = cfg.getTemplate(templateName);
+        //设置编码
+        template.setEncoding("UTF-8");
         // 创建生成类的存放路径
         FileUtils.forceMkdir(new File(Config.outCodePath + path));
         File output = new File(Config.outCodePath + path, fileName);
-        Writer writer = new FileWriter(output);
+        FileOutputStream fos= new FileOutputStream(output);
+        OutputStreamWriter osw =new OutputStreamWriter(fos, "UTF-8");
+        BufferedWriter bw =new BufferedWriter(osw, 1024);
         // 开始创建
-        template.process(data, writer);
+        template.process(data, bw);
     }
 
 
