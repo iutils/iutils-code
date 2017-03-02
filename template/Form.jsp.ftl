@@ -54,7 +54,7 @@
         </div>
     </div>
 </div>
-<%@ include file="../../include/bottom.jsp"%>
+<%@ include file="../<#if model.model!=model.className?uncap_first>../</#if>include/bottom.jsp"%>
 <script type="text/javascript">
     ${"$"}(document).ready(function () {
         var msg = '${"$"}{msg}';
