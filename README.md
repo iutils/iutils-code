@@ -5,4 +5,4 @@
 ![代码生成工具截图](https://github.com/iutils/iutils-code/blob/master/doc/img/代码生成工具截图.png)
 
 # 工具使用文档
-[工具使用文档](http://iutils.cn/f/3/49/view/document.html?categoryId=86)
+[工具使用文档](http://iutils.cn/f/39/101/detail.html)
