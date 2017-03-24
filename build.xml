@@ -5,7 +5,6 @@
     <property name="classes.dir" value="classes"/>
     <property name="jar.dir" value="${build.dir}/jar"/>
     <property name="lib.dir" value="lib"/>
-    <property name="config.dir" value="config"/>
     <property name="template.dir" value="template"/>
     <property name="jar_name" value="iutils-code"/>
     <property name="start_class" value="cn.iutils.code.main.Run"/>
@@ -27,7 +26,6 @@
         <mkdir dir="${build.dir}"/>
         <mkdir dir="${build.dir}\jar"/>
         <copydir dest="${build.dir}\lib" src="${lib.dir}"/>
-        <copydir dest="${build.dir}\jar\config" src="${config.dir}"/>
         <copydir dest="${build.dir}\jar\template" src="${template.dir}"/>
         <copy todir="${build.dir}\jar" file="start.bat"/>
     </target>
