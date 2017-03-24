@@ -32,6 +32,11 @@ public class CodeService {
     DBMangerPool dBMangerPool = DBMangerPool.getInstance();
 
     /**
+     * 项目路径
+     */
+    private String projectPath;
+
+    /**
      * 自动生成代码
      * @param treePath 树
      * @param myPackage 包名
@@ -39,8 +44,9 @@ public class CodeService {
      * @param subModel 子模块
      * @return
      */
-    public String auotoCode(TreePath[] treePath,String myPackage,String model,String subModel){
+    public String auotoCode(TreePath[] treePath,String myPackage,String model,String subModel,String projectPath){
         String msg = null;
+        this.projectPath = projectPath;//设置项目路径
         try {
             // 获得freemaker 配置
             cfg = ConfigurationHelper
@@ -93,26 +99,56 @@ public class CodeService {
         tableModel.setTableDesc(tableDesc);
         tableModel.setTableName(table);
 
+        //代码存放路径
+        String codePath = "src.main.java.";
+        //sql文件存放路径
+        String sqlPath = "src.main.resources.mappings.";
+        //jsp文件存放路径
+        String jspPath = "src.main.webapp.WEB-INF.view.";
+
         // 开始生成实体类
-        save(tableModel, "Pojo.java.ftl", "/" + className + "/",
+        String pojoPath = codePath+myPackage+"."+model;
+        if (subModel!=null){
+            pojoPath = pojoPath+"."+subModel;
+        }
+        pojoPath = pojoPath+".entity";
+        save(tableModel, "Pojo.java.ftl", pojoPath,
                 className + ".java");
+
         // 开始生成Dao接口
-        save(tableModel, "Dao.java.ftl", "/" + className + "/",
+        String daoPath = codePath+myPackage+"."+model;
+        if (subModel!=null){
+            daoPath = daoPath+"."+subModel;
+        }
+        daoPath = daoPath+".dao";
+        save(tableModel, "Dao.java.ftl", daoPath,
                 className + "Dao.java");
+
         // 开始生成Dao.xml文件
-        save(tableModel, "Mapper.xml.ftl", "/" + className + "/",
-                className + "Dao.xml");
+        String mapperPath = sqlPath+model;
+        save(tableModel, "Mapper.xml.ftl", mapperPath, className + "Dao.xml");
+
         // 开始生成Service
-        save(tableModel, "Service.java.ftl", "/" + className + "/",
+        String servicePath = codePath+myPackage+"."+model;
+        if (subModel!=null){
+            servicePath = servicePath+"."+subModel;
+        }
+        servicePath = servicePath+".service";
+        save(tableModel, "Service.java.ftl", servicePath,
                 className + "Service.java");
+
         // 开始生成Controller
-        save(tableModel, "Controller.java.ftl", "/" + className
-                + "/", className + "Controller.java");
+        String controllerPath = codePath+myPackage+"."+model;
+        if (subModel!=null){
+            controllerPath = controllerPath+"."+subModel;
+        }
+        controllerPath = controllerPath+".controller";
+        save(tableModel, "Controller.java.ftl", controllerPath, className + "Controller.java");
+
         // 开始生成页面
-        save(tableModel, "Form.jsp.ftl", "/" + className + "/",
-                "form.jsp");
-        save(tableModel, "List.jsp.ftl", "/" + className + "/",
-                "list.jsp");
+        String viewPath = jspPath+model+"."+className.toLowerCase();
+        save(tableModel, "Form.jsp.ftl", viewPath,"form.jsp");
+        save(tableModel, "List.jsp.ftl", viewPath,"list.jsp");
     }
 
     /**
@@ -131,8 +167,9 @@ public class CodeService {
         //设置编码
         template.setEncoding("UTF-8");
         // 创建生成类的存放路径
-        FileUtils.forceMkdir(new File(Config.outCodePath + path));
-        File output = new File(Config.outCodePath + path, fileName);
+        path = path.replaceAll("\\.",File.separator);
+        FileUtils.forceMkdir(new File(projectPath + File.separator + path));
+        File output = new File(projectPath + File.separator +path, fileName);
         FileOutputStream fos= new FileOutputStream(output);
         OutputStreamWriter osw =new OutputStreamWriter(fos, "UTF-8");
         BufferedWriter bw =new BufferedWriter(osw, 1024);

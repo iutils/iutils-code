@@ -32,6 +32,7 @@ public class Run {
     private JTextField myPackage;//当前包名
     private JButton connect;//连接数据库
     private JTree dbTree;//数据库树
+    private JTextField projectPath;//项目路径
     private JPopupMenu menu;//右键菜单
     private TreePath[] treePath=null;//节点路径
 
@@ -40,6 +41,7 @@ public class Run {
     String usernameParam;//数据库帐号
     String pwdParam;//数据库密码
     String charFilterParam;//过滤字符
+    String projectPathParam;//项目路径
     String myPackageParam;//包名
     String myModelParam;//模块
     String mySubModelParam;//子模块
@@ -132,6 +134,8 @@ public class Run {
         myModelParam = myModel.getText();
         //获取子模块
         mySubModelParam = mySubModel.getText();
+        //获取项目路径
+        projectPathParam = projectPath.getText();
 
     }
 
@@ -175,11 +179,13 @@ public class Run {
                 initValue();
                 if(myModelParam==null || "".equals(myModelParam)){
                     statusLog.append("警告：没有填写要生成的模块\r\n");
+                }else if(projectPathParam==null || "".equals(projectPathParam)){
+                    statusLog.append("警告：没有填写项目路径\r\n");
                 }else{
                     if(mySubModelParam==null || "".equals(mySubModelParam)){
                         mySubModelParam = null;
                     }
-                    String msg = codeService.auotoCode(treePath,myPackageParam,myModelParam,mySubModelParam);
+                    String msg = codeService.auotoCode(treePath,myPackageParam,myModelParam,mySubModelParam,projectPathParam);
                     if (msg != null) {
                         statusLog.append(msg+"\r\n");
                     }
@@ -198,7 +204,7 @@ public class Run {
         frame.setContentPane(rootPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
-        frame.setSize(800, 600);//设置界面大小
+        frame.setSize(850, 700);//设置界面大小
         frame.setLocationRelativeTo(rootPanel);
         frame.setVisible(true);
 

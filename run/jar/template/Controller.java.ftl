@@ -14,7 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cn.iutils.common.Page;
 import cn.iutils.common.utils.JStringUtils;
-import cn.iutils.common.controller.BaseController;
+import cn.iutils.common.BaseController;
 import ${model.packageName}.${model.model}<#if model.subModel??>.${model.subModel}</#if>.entity.${model.className};
 import ${model.packageName}.${model.model}<#if model.subModel??>.${model.subModel}</#if>.service.${model.className}Service;
 
