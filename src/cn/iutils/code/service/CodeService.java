@@ -167,7 +167,7 @@ public class CodeService {
         //设置编码
         template.setEncoding("UTF-8");
         // 创建生成类的存放路径
-        path = path.replaceAll("\\.",File.separator);
+        path = path.replaceAll("\\.","/");
         FileUtils.forceMkdir(new File(projectPath + File.separator + path));
         File output = new File(projectPath + File.separator +path, fileName);
         FileOutputStream fos= new FileOutputStream(output);
