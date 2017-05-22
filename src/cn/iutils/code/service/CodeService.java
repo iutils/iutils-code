@@ -146,7 +146,7 @@ public class CodeService {
         save(tableModel, "Controller.java.ftl", controllerPath, className + "Controller.java");
 
         // 开始生成页面
-        String viewPath = jspPath+model+"."+className.toLowerCase();
+        String viewPath = jspPath+model+"."+StringUtils.toLowerCaseFirstOne(className);
         save(tableModel, "Form.jsp.ftl", viewPath,"form.jsp");
         save(tableModel, "List.jsp.ftl", viewPath,"list.jsp");
     }
@@ -175,6 +175,9 @@ public class CodeService {
         BufferedWriter bw =new BufferedWriter(osw, 1024);
         // 开始创建
         template.process(data, bw);
+        fos.close();
+        osw.close();
+        bw.close();
     }
 
 
